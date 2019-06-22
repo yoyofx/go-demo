@@ -2,7 +2,7 @@ package test
 
 import (
 	"fmt"
-	"hello/cale"
+	"hello/model"
 	"testing"
 	"unsafe"
 
@@ -23,7 +23,7 @@ func Test_Mod_Import_Cale_Add(t *testing.T) {
 	fmt.Println()
 	fmt.Printf("type of a is %T , size of a is %d", b, unsafe.Sizeof(b))
 	fmt.Println()
-	var c, d = cale.Add(a, b)
+	var c, d = model.Add(a, b)
 	assert.Equal(t, c, 3)
 	assert.Equal(t, d, 1)
 
@@ -45,11 +45,6 @@ func Test_MakeSlice(t *testing.T) {
 	s := make([]int, 5, 5)
 	s = append(s, 6)
 	assert.Equal(t, len(s), 6)
-
-	var b string = "hello"
-
-	assert.Equal(t, b, "h")
-
 }
 
 func change(s ...string) []string {
@@ -85,4 +80,40 @@ func Test_MakeMap(t *testing.T) {
 	_, ok := personSalary["joe"]
 
 	assert.Equal(t, ok, false)
+}
+
+/*
+测试指针操作。
+*/
+func Test_Op_SimplePoint1(t *testing.T) {
+	b := 255
+	var a *int = &b
+	assert.Equal(t, *a, 255)
+
+	*a++
+	assert.Equal(t, b, 256)
+}
+
+/*
+操作数组尽可能使用切片，不推荐使用指针
+*/
+func modiflyArrayValueFor0Index(slice []int) {
+	slice[0] = 10
+}
+
+func modiflyPointValueFor0Index(arr *[]int) {
+	(*arr)[0] = 10
+	// ==  arr[0] = 10
+}
+
+/*
+测试修改数组时，使用切片与指针是等价的。
+*/
+func Test_ArrayElementSliceChanged(t *testing.T) {
+	array := []int{11, 20, 30}
+	assert.Equal(t, array, []int{11, 20, 30})
+	//modiflyArrayValueFor0Index(array)
+	modiflyPointValueFor0Index(&array)
+	assert.Equal(t, array, []int{10, 20, 30})
+
 }
