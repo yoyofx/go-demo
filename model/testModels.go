@@ -4,6 +4,10 @@ import (
 	"fmt"
 )
 
+type SalaryCalculator interface {
+	Display() string
+}
+
 type Employee struct {
 	Name     string
 	Salary   int

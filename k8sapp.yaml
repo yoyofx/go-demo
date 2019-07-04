@@ -1,0 +1,17 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: godemo1
+spec:
+  replicas: 1 # tells deployment to run 2 pods matching the template
+  template: # create pods using pod definition in this template
+    metadata:
+      labels:
+        app: godemo1
+    spec:
+      containers:
+        - name: godemo1
+          image: maxzhang1985/k8s_godemo1:v1
+          imagePullPolicy: Never #just for minikube,do not use this in production!!!
+          ports:
+            - containerPort: 8090

@@ -9,12 +9,12 @@ RUN mkdir -p /root/code
 ENV GOPATH /root/gopath
 
 
-# WORKDIR /godocker
+ WORKDIR /godocker
 
-# ADD . /godocker
+ ADD . /godocker
 
-# RUN go build hello.go
+ RUN go build application.go
 
-# EXPOSE 8080
+ EXPOSE 8090
 
-# ENTRYPOINT ["./hello"]
+ ENTRYPOINT ["./application"]

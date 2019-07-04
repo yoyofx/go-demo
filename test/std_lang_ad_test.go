@@ -13,8 +13,8 @@ func Test_MethodForStruct(t *testing.T) {
 		Currency: "china",
 		Salary:   1985,
 	}
-
-	display := employee.Display()
+	var salary model.SalaryCalculator = employee
+	display := salary.Display()
 	assert.Equal(t, display, "maxzhang,china,1985")
 
 }
